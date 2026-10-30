@@ -95,25 +95,27 @@
     var b = e.target.closest && e.target.closest(".term");
     if (b) lastTerm = b;
   }, true);
+  var place = function (pop, el) {
+    if (!el) return;
+    var r = el.getBoundingClientRect();
+    var w = Math.min(352, window.innerWidth - 24);
+    pop.style.width = w + "px";
+    var left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
+    var h = pop.offsetHeight;
+    var top = r.bottom + 8 + h > window.innerHeight - 12 ? Math.max(12, r.top - h - 8) : r.bottom + 8;
+    pop.style.left = left + "px";
+    pop.style.top = top + "px";
+  };
+  var openPop = null;
   document.querySelectorAll("[popover].def").forEach(function (pop) {
     pop.addEventListener("toggle", function (e) {
-      if (e.newState !== "open" || !lastTerm) return;
-      var r = lastTerm.getBoundingClientRect();
-      var w = Math.min(352, window.innerWidth - 24);
-      pop.style.width = w + "px";
-      var left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
-      var below = r.bottom + 8;
-      var h = pop.offsetHeight;
-      var top = below + h > window.innerHeight - 12 ? Math.max(12, r.top - h - 8) : below;
-      pop.style.left = left + "px";
-      pop.style.top = top + "px";
+      if (e.newState === "open") { pop._opener = lastTerm; openPop = pop; place(pop, lastTerm); }
+      else if (openPop === pop) { openPop = null; }
     });
   });
-  window.addEventListener("scroll", function () {
-    document.querySelectorAll("[popover].def").forEach(function (p) {
-      try { if (p.matches(":popover-open")) p.hidePopover(); } catch (e) {}
-    });
-  }, { passive: true });
+  var follow = function () { if (openPop) place(openPop, openPop._opener); };
+  window.addEventListener("scroll", follow, { passive: true });
+  window.addEventListener("resize", follow);
 
   // Full sample report dialog
   var dlg = document.getElementById("report-dialog");
