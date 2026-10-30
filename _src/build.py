@@ -5,6 +5,10 @@ Run from the repo root:  python3 _src/build.py
 Output files are written to the repo root, where GitHub Pages serves them.
 """
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from logo_paths import TEXT, DARK, GREEN  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = ROOT / "_src" / "pages"
@@ -26,6 +30,12 @@ PAGE_LIST = [
     ("walkthrough.html", "walkthrough", f"Request a property walkthrough | {SITE}",
      "Request a walkthrough of your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal."),
 ]
+
+LOGO = (
+    '<svg class="logo-svg" viewBox="18.7 10.5 984.6 262.8" aria-hidden="true" focusable="false">'
+    + "".join(f'<path class="lt" d="{d}"/>' for d in TEXT)
+    + f'<path class="ld" d="{DARK}"/><path class="lg" d="{GREEN}"/></svg>'
+)
 
 NAV = [
     ("services.html", "services", "Services"),
@@ -60,9 +70,9 @@ TEMPLATE = """<!doctype html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#232d1d">
+<meta name="theme-color" content="#1e2815">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/site.css">
 {schema}
 </head>
@@ -78,9 +88,7 @@ TEMPLATE = """<!doctype html>
 
 <header class="site-header">
   <div class="wrap">
-    <a class="wordmark" href="index.html" aria-label="Premier Landscape Management, home">
-      <b>Premier</b><span>Landscape Management</span>
-    </a>
+    <a class="logo" href="index.html" aria-label="Premier Landscape Management, home">{logo}</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav" aria-label="Main">
       <ul>
@@ -99,7 +107,7 @@ TEMPLATE = """<!doctype html>
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <a class="wordmark" href="index.html"><b>Premier</b><span>Landscape Management</span></a>
+        <a class="logo" href="index.html" aria-label="Premier Landscape Management, home">{logo}</a>
         <p style="margin-top:1.25rem">Commercial and HOA landscape management across the Phoenix metro, run by owner Jose Gonzalez.</p>
       </div>
       <div>
@@ -157,6 +165,7 @@ def build():
             nav=nav,
             body=body,
             schema=SCHEMA if key == "home" else "",
+            logo=LOGO,
             wt_current=' aria-current="page"' if key == "walkthrough" else "",
         )
         (ROOT / fname).write_text(html, encoding="utf-8")
