@@ -140,13 +140,14 @@ body.hide-tbd .tbd { background: none; box-shadow: none; padding: 0; }
 
 .nav { display: flex; align-items: center; gap: 1.75rem; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.6rem; }
-.nav a { text-decoration: none; font-size: 1.0625rem; font-weight: 520; padding: 0.4rem 0; border-bottom: 2px solid transparent; }
+.nav a { white-space: nowrap; text-decoration: none; font-size: 1.0625rem; font-weight: 520; padding: 0.4rem 0; border-bottom: 2px solid transparent; }
 .nav a:hover { border-bottom-color: var(--granite); }
 .nav a[aria-current="page"] { border-bottom-color: var(--leaf); }
 /* Live Phoenix weather */
 .wx { display: flex; align-items: center; gap: 0.65rem; padding-left: 1.25rem; border-left: 1px solid var(--line); line-height: 1.15; white-space: nowrap; }
 .wx[hidden] { display: none; }
-.wx svg { width: 2.25rem; height: 2.25rem; flex: none; }
+#wx-icon { display: block; width: 2.25rem; height: 2.25rem; flex: none; }
+#wx-icon svg { width: 100%; height: 100%; }
 .wx b { font-size: 1.375rem; font-weight: 700; }
 .wx .cond { font-size: 1rem; }
 .wx small { display: block; font-size: 0.875rem; color: var(--granite-dark); margin-top: 0.15rem; }
@@ -525,22 +526,26 @@ fieldset legend { margin-bottom: 0.6rem; padding: 0; }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (max-width: 900px) {
-  .logo-svg { height: 4.25rem; }
-  .site-header .wrap { min-height: 5.75rem; }
+@media (max-width: 1180px) {
   .nav-toggle { display: inline-block; }
   .logo { order: 1; }
-  .wx { order: 2; margin-left: auto; border-left: 0; padding-left: 0; }
-  .wx .cond, .wx small { display: none; }
+  .wx { order: 2; margin-left: auto; }
   .nav-toggle { order: 3; }
   .nav { order: 4; }
-  .site-header .wrap { gap: 1rem; }
+  .site-header .wrap { gap: 1.25rem; }
   .nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; padding: 0.5rem var(--gutter) 1.5rem; }
   .nav.open { display: flex; }
   .nav ul { flex-direction: column; gap: 0; }
   .nav ul a { display: block; padding: 1rem 0; border-bottom: 1px solid var(--line); font-size: 1.125rem; }
   .nav a[aria-current="page"] { border-bottom-color: var(--line); font-weight: 700; }
   .nav .btn { margin-top: 1.25rem; padding: 1rem; }
+}
+
+@media (max-width: 900px) {
+  .logo-svg { height: 4.25rem; }
+  .site-header .wrap { min-height: 5.75rem; gap: 1rem; }
+  .wx { border-left: 0; padding-left: 0; }
+  .wx .cond, .wx small { display: none; }
 
   .hero .wrap, .section-head, .report-layout, .letter, .split, .form-layout, .cta .wrap, .service { grid-template-columns: minmax(0, 1fr); }
   .commitments div { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
