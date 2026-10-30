@@ -397,9 +397,9 @@ dialog.report-dialog .report { max-height: calc(100vh - 2rem); overflow: auto; }
 .photo img { width: 100%; height: 100%; object-fit: cover; }
 .photo figcaption {
   position: absolute; left: 0.6rem; bottom: 0.6rem; right: 0.6rem; width: fit-content; max-width: calc(100% - 1.2rem);
-  background: rgba(42, 34, 31, 0.82); color: var(--paper); font-size: 0.875rem; line-height: 1.35; padding: 0.35rem 0.6rem; border-radius: 2px;
+  background: rgba(42, 34, 31, 0.82); color: var(--bloom); font-weight: 700; font-size: 0.8125rem; line-height: 1.35; padding: 0.35rem 0.6rem; border-radius: 2px;
 }
-.photo figcaption::before { content: "Stand-in photo: "; font-weight: 700; color: var(--bloom); }
+
 body.hide-tbd .photo figcaption { display: none; }
 
 /* Before and after slider */

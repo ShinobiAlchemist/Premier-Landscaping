@@ -190,7 +190,7 @@ def photo(m):
     src = f"https://images.unsplash.com/photo-{pid}?w={w}&q=70&auto=format&fit=crop"
     alt = _html.escape(alt, quote=True)
     return (f'<figure class="{cls}"><img src="{src}" alt="{alt}" loading="lazy" decoding="async">'
-            f'<figcaption>{alt}</figcaption></figure>')
+            '<figcaption>Stand-in photo</figcaption></figure>')
 
 
 def term(m):
