@@ -5,6 +5,8 @@ Run from the repo root:  python3 _src/build.py
 Output files are written to the repo root, where GitHub Pages serves them.
 """
 from pathlib import Path
+import html as _html
+import re
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -27,8 +29,8 @@ PAGE_LIST = [
      "How Premier Landscape Management starts and runs a contract: walkthrough, written proposal, property plan, monthly walkthroughs and the Phoenix seasonal calendar."),
     ("about.html", "about", f"About | {SITE}",
      "Premier Landscape Management LLC is an owner-run Phoenix landscape contractor led by Jose Gonzalez. Arizona ROC 355147."),
-    ("walkthrough.html", "walkthrough", f"Request a property walkthrough | {SITE}",
-     "Request a walkthrough of your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal."),
+    ("request-proposal.html", "proposal", f"Request a proposal | {SITE}",
+     "Request a landscape maintenance proposal for your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal."),
 ]
 
 LOGO = (
@@ -36,6 +38,27 @@ LOGO = (
     + "".join(f'<path class="lt" d="{d}"/>' for d in TEXT)
     + f'<path class="ld" d="{DARK}"/><path class="lg" d="{GREEN}"/></svg>'
 )
+
+TERMS = {
+    "overseed": ("Overseed", "Spreading ryegrass seed over dormant bermuda in fall, so the turf stays green through winter."),
+    "scalp": ("Scalp", "Mowing bermuda very short in September, so new ryegrass seed can reach the soil."),
+    "preemergent": ("Pre-emergent", "A weed treatment applied before weed seeds sprout. It keeps them from starting to grow."),
+    "bermuda": ("Bermuda", "The warm-season grass on most Phoenix turf. It grows through summer and turns brown and dormant in winter."),
+    "drip": ("Drip irrigation", "Small tubes and emitters that deliver water slowly to each plant's roots. Used for shrubs, trees and beds."),
+    "natural": ("Natural-form pruning", "Pruning that keeps a plant's own shape by removing selected branches at their base."),
+    "structural": ("Structural pruning", "Pruning that builds a strong trunk and well-spaced branches, so the tree holds up in wind."),
+    "monsoon": ("Monsoon", "Arizona's summer storm season, June 15 to September 30, with high winds, dust storms and heavy rain."),
+    "transition": ("Transition", "The late-spring period when winter ryegrass dies back in the heat and bermuda grows in again."),
+}
+
+GLOSSARY = "\n".join(
+    f'<div class="def" id="def-{k}" popover><b>{t}</b>{d}</div>' for k, (t, d) in TERMS.items()
+)
+
+WEATHER = """    <div class="wx" id="wx" hidden aria-label="Current weather in Phoenix">
+      <span id="wx-icon" aria-hidden="true"></span>
+      <span><b id="wx-temp"></b> <span class="cond" id="wx-cond"></span><small>Phoenix, Sky Harbor</small></span>
+    </div>"""
 
 NAV = [
     ("services.html", "services", "Services"),
@@ -94,14 +117,18 @@ TEMPLATE = """<!doctype html>
       <ul>
 {nav}
       </ul>
-      <a class="btn btn-ink" href="walkthrough.html"{wt_current}>Request a walkthrough</a>
+      <a class="btn btn-ink" href="request-proposal.html"{wt_current}>Request a proposal</a>
     </nav>
+{weather}
   </div>
 </header>
 
 <main id="main">
+<div class="rail" aria-hidden="true"></div>
 {body}
 </main>
+
+{glossary}
 
 <footer class="site-footer">
   <div class="wrap">
@@ -152,9 +179,35 @@ TEMPLATE = """<!doctype html>
 """
 
 
+PHOTO_RE = re.compile(r"\[\[photo (\S+) (std|tall|wide) \| ([^\]]+)\]\]")
+TERM_RE = re.compile(r"\[\[term (\w+)\|([^\]]+)\]\]")
+
+
+def photo(m):
+    pid, size, alt = m.group(1), m.group(2), m.group(3).strip()
+    cls = "photo" if size == "std" else f"photo {size}"
+    w = 900 if size == "std" else 1400
+    src = f"https://images.unsplash.com/photo-{pid}?w={w}&q=70&auto=format&fit=crop"
+    alt = _html.escape(alt, quote=True)
+    return (f'<figure class="{cls}"><img src="{src}" alt="{alt}" loading="lazy" decoding="async">'
+            f'<figcaption>{alt}</figcaption></figure>')
+
+
+def term(m):
+    key, text = m.group(1), m.group(2)
+    assert key in TERMS, key
+    return f'<button type="button" class="term" popovertarget="def-{key}">{text}</button>'
+
+
+def expand(body):
+    return TERM_RE.sub(term, PHOTO_RE.sub(photo, body))
+
+
 def build():
     for fname, key, title, desc in PAGE_LIST:
         body = (PAGES / fname).read_text(encoding="utf-8").strip("\n")
+        body = expand(body)
+        assert "[[" not in body, fname
         nav = "\n".join(
             f'        <li><a href="{href}"{" aria-current=\"page\"" if k == key else ""}>{label}</a></li>'
             for href, k, label in NAV
@@ -166,7 +219,9 @@ def build():
             body=body,
             schema=SCHEMA if key == "home" else "",
             logo=LOGO,
-            wt_current=' aria-current="page"' if key == "walkthrough" else "",
+            glossary=GLOSSARY,
+            weather=WEATHER if key == "home" else "",
+            wt_current=' aria-current="page"' if key == "proposal" else "",
         )
         (ROOT / fname).write_text(html, encoding="utf-8")
         print("built", fname)

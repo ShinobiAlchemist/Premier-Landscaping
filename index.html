@@ -49,19 +49,24 @@
         <li><a href="how-we-work.html">How we work</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
-      <a class="btn btn-ink" href="walkthrough.html">Request a walkthrough</a>
+      <a class="btn btn-ink" href="request-proposal.html">Request a proposal</a>
     </nav>
+    <div class="wx" id="wx" hidden aria-label="Current weather in Phoenix">
+      <span id="wx-icon" aria-hidden="true"></span>
+      <span><b id="wx-temp"></b> <span class="cond" id="wx-cond"></span><small>Phoenix, Sky Harbor</small></span>
+    </div>
   </div>
 </header>
 
 <main id="main">
-<section class="hero on-dark">
+<div class="rail" aria-hidden="true"></div>
+<section class="hero on-dark ridged">
   <div class="wrap">
     <div>
       <h1>Commercial and HOA landscaping in Phoenix</h1>
       <p class="lead">Premier Landscape Management is owned and run by Jose Gonzalez, who walks client properties himself. Each property has an assigned crew, and you receive a written report after every walkthrough.</p>
       <div class="hero-actions">
-        <a class="btn btn-leaf" href="walkthrough.html">Request a property walkthrough</a>
+        <a class="btn btn-leaf" href="request-proposal.html">Request a proposal</a>
         <a class="btn btn-line" href="services.html">See our services</a>
       </div>
       <div class="hero-meta">
@@ -71,87 +76,97 @@
       </div>
     </div>
     <figure class="plan-wrap" style="margin:0">
-      <svg class="plan" viewBox="0 0 560 520" role="img" aria-labelledby="plan-title plan-desc">
+      <svg class="plan" id="plan" viewBox="0 0 560 520" role="img" aria-labelledby="plan-title plan-desc">
         <title id="plan-title">Irrigation and planting plan of a commercial property</title>
         <desc id="plan-desc">A top-down plan showing a building, a turf area with spray heads, a parking lot with planted islands, a shrub bed and street trees, each served by its own irrigation zone.</desc>
         <defs>
           <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-            <line x1="0" y1="0" x2="0" y2="9" stroke="#e3dfd3" stroke-opacity=".22" stroke-width="1.4"/>
+            <line x1="0" y1="0" x2="0" y2="9" stroke="#ebdfc9" stroke-opacity=".22" stroke-width="1.4"/>
           </pattern>
           <pattern id="mow" width="190" height="22" patternUnits="userSpaceOnUse">
-            <rect width="190" height="11" fill="#e3dfd3" fill-opacity=".07"/>
+            <rect width="190" height="11" fill="#ebdfc9" fill-opacity=".07"/>
+          </pattern>
+          <pattern id="dg" width="7" height="7" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r=".8" fill="#b08a5a" fill-opacity=".55"/><circle cx="5.5" cy="5" r=".6" fill="#b08a5a" fill-opacity=".4"/>
           </pattern>
         </defs>
 
-        <g fill="none" stroke="#e3dfd3" stroke-opacity=".5" stroke-width="1.5">
-          <!-- street and sidewalk -->
-          <rect x="0" y="468" width="560" height="52" fill="#e3dfd3" fill-opacity=".05" stroke="none"/>
+        <g fill="none" stroke="#ebdfc9" stroke-opacity=".5" stroke-width="1.5">
+          <rect x="0" y="468" width="560" height="52" fill="#ebdfc9" fill-opacity=".05" stroke="none"/>
           <line x1="0" y1="458" x2="560" y2="458"/>
           <line x1="0" y1="494" x2="560" y2="494" stroke-dasharray="14 12" stroke-opacity=".3"/>
-          <!-- building -->
           <rect x="40" y="40" width="260" height="160" fill="url(#hatch)"/>
-          <!-- turf -->
           <rect x="330" y="40" width="190" height="160" rx="4" fill="url(#mow)"/>
-          <!-- parking lot and stalls -->
           <rect x="40" y="250" width="360" height="170" stroke-opacity=".35"/>
           <path d="M65 250v38M90 250v38M115 250v38M140 250v38M165 250v38M190 250v38M215 250v38M240 250v38M265 250v38M290 250v38M315 250v38M340 250v38M365 250v38M65 382v38M90 382v38M115 382v38M140 382v38M165 382v38M190 382v38M215 382v38M240 382v38M265 382v38M290 382v38M315 382v38M340 382v38M365 382v38" stroke-opacity=".28"/>
-          <rect x="70" y="322" width="300" height="26" rx="13"/>
-          <!-- shrub bed -->
-          <rect x="425" y="235" width="95" height="200" rx="30" stroke-dasharray="5 5"/>
+          <rect x="70" y="322" width="300" height="26" rx="13" fill="url(#dg)"/>
+          <rect x="425" y="235" width="95" height="200" rx="30" stroke-dasharray="5 5" fill="url(#dg)"/>
         </g>
 
-        <!-- canopy: island trees, street trees, shrubs -->
-        <g fill="#e3dfd3" fill-opacity=".06" stroke="#e3dfd3" stroke-opacity=".55" stroke-width="1.3" stroke-dasharray="3 4">
+        <g fill="#ebdfc9" fill-opacity=".06" stroke="#ebdfc9" stroke-opacity=".55" stroke-width="1.3" stroke-dasharray="3 4">
           <circle cx="110" cy="335" r="22"/><circle cx="220" cy="335" r="22"/><circle cx="330" cy="335" r="22"/>
           <circle cx="80" cy="440" r="14"/><circle cx="200" cy="440" r="14"/><circle cx="320" cy="440" r="14"/><circle cx="440" cy="440" r="14"/>
         </g>
-        <g fill="#e3dfd3" fill-opacity=".14" stroke="none">
+        <g fill="#ebdfc9" fill-opacity=".14">
           <circle cx="455" cy="280" r="10"/><circle cx="488" cy="300" r="12"/><circle cx="452" cy="330" r="11"/><circle cx="490" cy="350" r="9"/><circle cx="458" cy="385" r="12"/><circle cx="492" cy="400" r="10"/>
         </g>
 
-        <!-- irrigation -->
+        <!-- mainline -->
         <g fill="none" stroke="#a9c25e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path class="pipe" pathLength="1" d="M18 480V225H315V30H525"/>
-          <path class="pipe" pathLength="1" d="M315 55H505M315 120H505M315 185H505" stroke-width="1.4"/>
-          <path class="pipe" pathLength="1" d="M18 335H370" stroke-width="1.4" stroke-dasharray="1"/>
-          <path class="pipe" pathLength="1" d="M315 225H470V425" stroke-width="1.4"/>
-          <path class="pipe" pathLength="1" d="M18 440H440" stroke-width="1.4"/>
         </g>
-        <g fill="#a9c25e">
-          <g class="head" style="--d:0s"><circle cx="345" cy="55" r="4"/><circle cx="425" cy="55" r="4"/><circle cx="505" cy="55" r="4"/></g>
-          <g class="head" style="--d:.12s"><circle cx="345" cy="120" r="4"/><circle cx="425" cy="120" r="4"/><circle cx="505" cy="120" r="4"/></g>
-          <g class="head" style="--d:.24s"><circle cx="345" cy="185" r="4"/><circle cx="425" cy="185" r="4"/><circle cx="505" cy="185" r="4"/></g>
-          <g class="head" style="--d:.36s"><circle cx="110" cy="335" r="3"/><circle cx="220" cy="335" r="3"/><circle cx="330" cy="335" r="3"/></g>
-          <g class="head" style="--d:.48s"><circle cx="470" cy="280" r="3"/><circle cx="470" cy="330" r="3"/><circle cx="470" cy="385" r="3"/></g>
-          <g class="head" style="--d:.6s"><circle cx="80" cy="440" r="3"/><circle cx="200" cy="440" r="3"/><circle cx="320" cy="440" r="3"/><circle cx="440" cy="440" r="3"/></g>
+        <g fill="#2a221f" stroke="#a9c25e" stroke-width="1.6"><rect x="8" y="474" width="20" height="14" rx="2"/></g>
+
+        <g class="zone" data-zone="z1">
+          <path class="pipe" pathLength="1" d="M315 55H505M315 120H505M315 185H505" fill="none" stroke="#a9c25e" stroke-width="1.4"/>
+          <g class="head" style="--d:0s" fill="#a9c25e">
+            <circle cx="345" cy="55" r="4"/><circle cx="425" cy="55" r="4"/><circle cx="505" cy="55" r="4"/>
+            <circle cx="345" cy="120" r="4"/><circle cx="425" cy="120" r="4"/><circle cx="505" cy="120" r="4"/>
+            <circle cx="345" cy="185" r="4"/><circle cx="425" cy="185" r="4"/><circle cx="505" cy="185" r="4"/>
+          </g>
+          <g class="head" style="--d:.2s" fill="none" stroke="#a9c25e" stroke-opacity=".28">
+            <circle cx="345" cy="55" r="34"/><circle cx="425" cy="55" r="34"/><circle cx="505" cy="55" r="34"/>
+            <circle cx="345" cy="120" r="34"/><circle cx="425" cy="120" r="34"/><circle cx="505" cy="120" r="34"/>
+            <circle cx="345" cy="185" r="34"/><circle cx="425" cy="185" r="34"/><circle cx="505" cy="185" r="34"/>
+          </g>
+          <g fill="#2a221f" stroke="#a9c25e" stroke-width="1.6"><rect x="309" y="49" width="12" height="12"/><rect x="309" y="114" width="12" height="12"/><rect x="309" y="179" width="12" height="12"/></g>
+          <text x="336" y="21" font-family="Montserrat, sans-serif" font-size="12.5" font-weight="600" fill="#a9c25e">Z1  Turf spray</text>
         </g>
-        <g class="head" style="--d:.2s" fill="none" stroke="#a9c25e" stroke-opacity=".28" stroke-width="1">
-          <circle cx="345" cy="55" r="34"/><circle cx="425" cy="55" r="34"/><circle cx="505" cy="55" r="34"/>
-          <circle cx="345" cy="120" r="34"/><circle cx="425" cy="120" r="34"/><circle cx="505" cy="120" r="34"/>
-          <circle cx="345" cy="185" r="34"/><circle cx="425" cy="185" r="34"/><circle cx="505" cy="185" r="34"/>
+        <g class="zone" data-zone="z2">
+          <path class="pipe" pathLength="1" d="M18 335H370" fill="none" stroke="#a9c25e" stroke-width="1.4"/>
+          <g class="head" style="--d:.36s" fill="#a9c25e"><circle cx="110" cy="335" r="3"/><circle cx="220" cy="335" r="3"/><circle cx="330" cy="335" r="3"/></g>
+          <g fill="#2a221f" stroke="#a9c25e" stroke-width="1.6"><rect x="12" y="329" width="12" height="12"/></g>
+          <text x="78" y="314" font-family="Montserrat, sans-serif" font-size="12.5" font-weight="600" fill="#a9c25e">Z2  Island drip</text>
         </g>
-        <!-- valves and controller -->
-        <g fill="#1e2815" stroke="#a9c25e" stroke-width="1.6">
-          <rect x="309" y="49" width="12" height="12"/><rect x="309" y="114" width="12" height="12"/><rect x="309" y="179" width="12" height="12"/>
-          <rect x="12" y="329" width="12" height="12"/><rect x="12" y="434" width="12" height="12"/><rect x="324" y="219" width="12" height="12"/>
-          <rect x="8" y="474" width="20" height="14" rx="2"/>
+        <g class="zone" data-zone="z3">
+          <path class="pipe" pathLength="1" d="M315 225H470V425" fill="none" stroke="#a9c25e" stroke-width="1.4"/>
+          <g class="head" style="--d:.48s" fill="#a9c25e"><circle cx="470" cy="280" r="3"/><circle cx="470" cy="330" r="3"/><circle cx="470" cy="385" r="3"/></g>
+          <g fill="#2a221f" stroke="#a9c25e" stroke-width="1.6"><rect x="324" y="219" width="12" height="12"/></g>
+          <text x="432" y="227" font-family="Montserrat, sans-serif" font-size="12.5" font-weight="600" fill="#a9c25e">Z3  Shrub drip</text>
+        </g>
+        <g class="zone" data-zone="z4">
+          <path class="pipe" pathLength="1" d="M18 440H440" fill="none" stroke="#a9c25e" stroke-width="1.4"/>
+          <g class="head" style="--d:.6s" fill="#a9c25e"><circle cx="80" cy="440" r="3"/><circle cx="200" cy="440" r="3"/><circle cx="320" cy="440" r="3"/><circle cx="440" cy="440" r="3"/></g>
+          <g fill="#2a221f" stroke="#a9c25e" stroke-width="1.6"><rect x="12" y="434" width="12" height="12"/></g>
+          <text x="96" y="478" font-family="Montserrat, sans-serif" font-size="12.5" font-weight="600" fill="#a9c25e">Z4  Tree bubblers</text>
         </g>
 
-        <!-- labels -->
-        <g font-family="Montserrat, sans-serif" font-size="12.5" font-weight="600" fill="#a9c25e">
-          <text x="336" y="21">Z1  Turf spray</text>
-          <text x="78" y="314">Z2  Island drip</text>
-          <text x="432" y="227">Z3  Shrub drip</text>
-          <text x="96" y="478" dx="0">Z4  Tree bubblers</text>
-          <text x="34" y="510">Backflow</text>
-        </g>
-        <g font-family="Montserrat, sans-serif" font-size="12.5" font-weight="500" fill="#e3dfd3" fill-opacity=".75">
+        <g font-family="Montserrat, sans-serif" font-size="12.5" font-weight="500" fill="#ebdfc9" fill-opacity=".75">
           <text x="148" y="124">Building</text>
           <text x="56" y="374">Parking</text>
           <text x="206" y="218">Controller</text>
+          <text x="34" y="510">Backflow</text>
         </g>
       </svg>
-      <figcaption class="plan-caption">Before the first visit, we map each property's irrigation zones, plants and trees, and set its visit schedule.</figcaption>
+      <figcaption>
+        <div class="zones" role="group" aria-label="Irrigation zones on the plan">
+          <button type="button" data-zone="z1" aria-pressed="false">Turf spray</button>
+          <button type="button" data-zone="z2" aria-pressed="false">Island drip</button>
+          <button type="button" data-zone="z3" aria-pressed="false">Shrub drip</button>
+          <button type="button" data-zone="z4" aria-pressed="false">Tree bubblers</button>
+        </div>
+        <output class="zone-note" id="zone-note" for="plan" aria-live="polite">Before the first visit, we map each property's irrigation zones, plants and trees. Pick a zone to see how we maintain it.</output>
+      </figcaption>
     </figure>
   </div>
 </section>
@@ -200,18 +215,22 @@
     </div>
     <div class="properties">
       <div>
+        <figure class="photo"><img src="https://images.unsplash.com/photo-1532295039064-229629db1073?w=900&q=70&auto=format&fit=crop" alt="Paved path through a desert landscape with saguaros and mountains" loading="lazy" decoding="async"><figcaption>Paved path through a desert landscape with saguaros and mountains</figcaption></figure>
         <h3>HOA communities</h3>
         <p>Entries, common areas, parks and retention basins, with reports written for board meetings.</p>
       </div>
       <div>
+        <figure class="photo"><img src="https://images.unsplash.com/photo-1773193120818-db5e2d137acc?w=900&q=70&auto=format&fit=crop" alt="Office building with planted courtyard and water feature" loading="lazy" decoding="async"><figcaption>Office building with planted courtyard and water feature</figcaption></figure>
         <h3>Office and business parks</h3>
         <p>Grounds kept consistent for tenants and the people who visit them.</p>
       </div>
       <div>
+        <figure class="photo"><img src="https://images.unsplash.com/photo-1724274876097-103bb600debb?w=900&q=70&auto=format&fit=crop" alt="Aerial view of a parking lot with planted islands and trees" loading="lazy" decoding="async"><figcaption>Aerial view of a parking lot with planted islands and trees</figcaption></figure>
         <h3>Retail and mixed-use</h3>
         <p>Crews on site before stores open, with parking islands trimmed and signs kept visible.</p>
       </div>
       <div>
+        <figure class="photo"><img src="https://images.unsplash.com/photo-1776437210753-0a8ac2a83d0e?w=900&q=70&auto=format&fit=crop" alt="Building surrounded by palm trees under a clear sky" loading="lazy" decoding="async"><figcaption>Building surrounded by palm trees under a clear sky</figcaption></figure>
         <h3>Multifamily</h3>
         <p>Leasing paths, pool areas and courtyards kept ready for tours.</p>
       </div>
@@ -220,7 +239,7 @@
   </div>
 </section>
 
-<section class="section on-dark">
+<section class="section on-dark green">
   <div class="wrap">
     <div class="section-head">
       <h2 style="color:var(--paper)">Services</h2>
@@ -241,7 +260,7 @@
     <div>
       <h2>What a walkthrough report looks like</h2>
       <p class="lead" style="margin-top:1.5rem">After each walkthrough you receive a short report listing the work completed, what we noticed and what we recommend. Boards can keep these reports as a record of the work on the property.</p>
-      <p>Items that need your approval are marked as a quote, with the price attached.</p>
+      <p>Items that need your approval are marked as a quote, with the price attached. Open any row to see the photo and the crew's note.</p>
     </div>
     <article class="report" aria-label="Sample walkthrough report">
       <header>
@@ -251,20 +270,32 @@
         </div>
         <span class="stamp">Sample</span>
       </header>
-      <table>
-        <thead><tr><th scope="col">Area</th><th scope="col">What we found and did</th><th scope="col">Status</th></tr></thead>
-        <tbody>
-          <tr><td>Park and entry turf</td><td>Overseeded with winter rye. Germination looks even.</td><td><span class="status done">Done</span></td></tr>
-          <tr><td>Irrigation</td><td>Repaired a drip leak on zone 6 by the north wall. Controller moved to the fall schedule.</td><td><span class="status done">Done</span></td></tr>
-          <tr><td>Trees by the pool</td><td>Two mesquites leaning after September storms. Structural prune recommended.</td><td><span class="status quote">Quote sent</span></td></tr>
-          <tr><td>Main drive shrubs</td><td>Natural-form pruning on Texas sage, no shearing.</td><td><span class="status done">Done</span></td></tr>
-          <tr><td>Mail kiosk granite</td><td>Thin coverage. Add to the next enhancement round.</td><td><span class="status watch">Watching</span></td></tr>
-        </tbody>
-      </table>
+      <div class="report-cols" aria-hidden="true"><span>Area</span><span>What we found and did</span><span>Status</span></div>
+      <details>
+        <summary><b>Park and entry turf</b><span><button type="button" class="term" popovertarget="def-overseed">Overseeded</button> with winter rye. Germination looks even.</span><span class="status done">Done</span></summary>
+        <div class="more"><figure class="photo"><img src="https://images.unsplash.com/photo-1787080181155-ada01ab07d53?w=900&q=70&auto=format&fit=crop" alt="Sprinklers watering turf among trees in early light" loading="lazy" decoding="async"><figcaption>Sprinklers watering turf among trees in early light</figcaption></figure><p>Seed went down after the September <button type="button" class="term" popovertarget="def-scalp">scalp</button>. Sprinkler run times were raised for the first three weeks to keep the seed damp.</p></div>
+      </details>
+      <details>
+        <summary><b>Irrigation</b><span>Repaired a <button type="button" class="term" popovertarget="def-drip">drip</button> leak on zone 6 by the north wall. Controller moved to the fall schedule.</span><span class="status done">Done</span></summary>
+        <div class="more"><figure class="photo"><img src="https://images.unsplash.com/photo-1748432171507-c1d62fe2e859?w=900&q=70&auto=format&fit=crop" alt="Drip irrigation line running through a planted bed" loading="lazy" decoding="async"><figcaption>Drip irrigation line running through a planted bed</figcaption></figure><p>The leak was a split fitting under the gravel. We replaced the fitting and two clogged emitters on the same line.</p></div>
+      </details>
+      <details>
+        <summary><b>Trees by the pool</b><span>Two mesquites leaning after September storms. <button type="button" class="term" popovertarget="def-structural">Structural prune</button> recommended.</span><span class="status quote">Quote sent</span></summary>
+        <div class="more"><figure class="photo"><img src="https://images.unsplash.com/photo-1662408083307-0d5fd3caa8d9?w=900&q=70&auto=format&fit=crop" alt="Mesquite tree with a wide, spreading canopy" loading="lazy" decoding="async"><figcaption>Mesquite tree with a wide, spreading canopy</figcaption></figure><p>Both trees are top-heavy on the pool side. Thinning the canopy now lowers the wind load before next monsoon season.</p></div>
+      </details>
+      <details>
+        <summary><b>Main drive shrubs</b><span><button type="button" class="term" popovertarget="def-natural">Natural-form pruning</button> on Texas sage.</span><span class="status done">Done</span></summary>
+        <div class="more"><figure class="photo"><img src="https://images.unsplash.com/photo-1781030332057-09f9f3331432?w=900&q=70&auto=format&fit=crop" alt="Agave and desert shrubs along a gravel path beside a building" loading="lazy" decoding="async"><figcaption>Agave and desert shrubs along a gravel path beside a building</figcaption></figure><p>Selected branches were removed at the base to open the plants up. The sage should flower again after the next rain.</p></div>
+      </details>
+      <details>
+        <summary><b>Mail kiosk granite</b><span>Thin coverage. Add to the next enhancement round.</span><span class="status watch">Watching</span></summary>
+        <div class="more"><figure class="photo"><img src="https://images.unsplash.com/photo-1782141243609-28a334472e4f?w=900&q=70&auto=format&fit=crop" alt="Decomposed granite bed with a barrel cactus" loading="lazy" decoding="async"><figcaption>Decomposed granite bed with a barrel cactus</figcaption></figure><p>About 40 square feet needs a top-dress. We'll match the existing color and size.</p></div>
+      </details>
       <div class="notes">
         <p>Please keep foot traffic off the park lawn through the end of the month so the rye can establish. I'll send the mesquite proposal by Friday.</p>
       </div>
       <p class="sig">Jose Gonzalez, Premier Landscape Management. Property and details are illustrative.</p>
+      <div class="report-actions"><button type="button" class="btn btn-line" data-open-report>View the full sample report</button></div>
     </article>
   </div>
 </section>
@@ -275,18 +306,22 @@
       <h2>Seasonal work in Phoenix</h2>
       <p>Desert landscapes follow a yearly schedule. We plan each property's seasonal work in advance and confirm it with you before it starts.</p>
     </div>
+    <div class="now-strip" id="now-strip" hidden>
+      <h3>This month: <time id="now-month"></time></h3>
+      <p id="now-work"></p>
+    </div>
     <div class="calendar">
-      <div class="season">
+      <div class="season" data-months="9 10 11">
         <h3>Fall</h3>
         <p class="months">September to November</p>
         <ul>
-          <li>Scalp bermuda and overseed winter rye</li>
-          <li>Pre-emergent for winter weeds</li>
+          <li><button type="button" class="term" popovertarget="def-scalp">Scalp</button> <button type="button" class="term" popovertarget="def-bermuda">bermuda</button> and <button type="button" class="term" popovertarget="def-overseed">overseed</button> winter rye</li>
+          <li><button type="button" class="term" popovertarget="def-preemergent">Pre-emergent</button> for winter weeds</li>
           <li>Shorter irrigation run times as it cools</li>
           <li>Planting while the soil is still warm</li>
         </ul>
       </div>
-      <div class="season">
+      <div class="season" data-months="12 1 2">
         <h3>Winter</h3>
         <p class="months">December to February</p>
         <ul>
@@ -296,17 +331,17 @@
           <li>Spring pre-emergent in February</li>
         </ul>
       </div>
-      <div class="season">
+      <div class="season" data-months="3 4 5">
         <h3>Spring</h3>
         <p class="months">March to May</p>
         <ul>
-          <li>Transition from rye back to bermuda</li>
+          <li><button type="button" class="term" popovertarget="def-transition">Transition</button> from rye back to bermuda</li>
           <li>Full irrigation check before the heat</li>
           <li>Feed bermuda as it greens up</li>
-          <li>Pre-monsoon tree thinning begins</li>
+          <li>Pre-<button type="button" class="term" popovertarget="def-monsoon">monsoon</button> tree thinning begins</li>
         </ul>
       </div>
-      <div class="season">
+      <div class="season" data-months="6 7 8">
         <h3>Summer</h3>
         <p class="months">June to August</p>
         <ul>
@@ -325,7 +360,7 @@
   <div class="wrap letter">
     <div>
       <h2>A note from Jose</h2>
-      <div class="photo tall" style="margin-top:2rem"><span>Portrait of Jose on a client property, early morning light.</span></div>
+      <div style="margin-top:2rem"><figure class="photo tall"><img src="https://images.unsplash.com/photo-1779636489748-c66b48a94c39?w=1400&q=70&auto=format&fit=crop" alt="Landscaper walking a sidewalk with a trimmer, early morning" loading="lazy" decoding="async"><figcaption>Landscaper walking a sidewalk with a trimmer, early morning</figcaption></figure></div>
     </div>
     <div class="letter-body">
       <div class="tbd" style="display:block;padding:0.2em 0.4em">
@@ -341,16 +376,60 @@
 <section class="cta">
   <div class="wrap">
     <div>
-      <h2>Request a walkthrough of your property</h2>
-      <p>We'll walk the grounds with you and send a written proposal afterward. <span class="tbd">The walkthrough is free.</span></p>
+      <h2>Request a proposal for your property</h2>
+      <p>Tell us about the property and we'll schedule a walkthrough with you or your manager. A written proposal with scope and monthly pricing follows the walkthrough.</p>
     </div>
     <div class="cta-actions">
-      <a class="btn btn-ink" href="walkthrough.html">Request a walkthrough</a>
+      <a class="btn btn-ink" href="request-proposal.html">Request a proposal</a>
       <a class="btn btn-line" href="tel:+16020000000"><span>Call <span class="tbd">(602) 000-0000</span></span></a>
     </div>
   </div>
 </section>
+
+<dialog class="report-dialog" id="report-dialog" aria-labelledby="full-report-title">
+  <div class="report">
+    <div class="dialog-bar">
+      <button type="button" class="btn btn-line" data-print-report>Print</button>
+      <button type="button" class="btn btn-ink" data-close-report>Close</button>
+    </div>
+    <header>
+      <div>
+        <h3 id="full-report-title">Walkthrough report, October</h3>
+        <p>Sample HOA community, Phoenix. Walked with the community manager. Weather: clear, 84&deg;F.</p>
+      </div>
+      <span class="stamp">Sample</span>
+    </header>
+    <div class="report-cols"><span>Area</span><span>What we found and did</span><span>Status</span></div>
+    <details open><summary><b>Park and entry turf</b><span>Overseeded with winter rye. Germination looks even.</span><span class="status done">Done</span></summary></details>
+    <details open><summary><b>Irrigation, zone 6</b><span>Repaired a drip leak by the north wall and replaced two clogged emitters.</span><span class="status done">Done</span></summary></details>
+    <details open><summary><b>Controllers</b><span>All three controllers moved to the fall schedule.</span><span class="status done">Done</span></summary></details>
+    <details open><summary><b>Trees by the pool</b><span>Two mesquites leaning after September storms. Structural prune quoted.</span><span class="status quote">Quote sent</span></summary></details>
+    <details open><summary><b>Main drive shrubs</b><span>Natural-form pruning on Texas sage.</span><span class="status done">Done</span></summary></details>
+    <details open><summary><b>Retention basin</b><span>Cleared storm debris and sediment from the inlet.</span><span class="status done">Done</span></summary></details>
+    <details open><summary><b>Mail kiosk granite</b><span>Thin coverage. Add to the next enhancement round.</span><span class="status watch">Watching</span></summary></details>
+    <details open><summary><b>Pool area palms</b><span>Seed pods forming on two queen palms. Trim scheduled with next summer's palm work.</span><span class="status watch">Watching</span></summary></details>
+    <div class="totals">
+      <div><b>6</b>items completed</div>
+      <div><b>2</b>items to watch</div>
+      <div><b>1</b>quote awaiting approval</div>
+    </div>
+    <div class="notes">
+      <p>Please keep foot traffic off the park lawn through the end of the month so the rye can establish. I'll send the mesquite proposal by Friday.</p>
+    </div>
+    <p class="sig">Jose Gonzalez, Premier Landscape Management. Property and details are illustrative.</p>
+  </div>
+</dialog>
 </main>
+
+<div class="def" id="def-overseed" popover><b>Overseed</b>Spreading ryegrass seed over dormant bermuda in fall, so the turf stays green through winter.</div>
+<div class="def" id="def-scalp" popover><b>Scalp</b>Mowing bermuda very short in September, so new ryegrass seed can reach the soil.</div>
+<div class="def" id="def-preemergent" popover><b>Pre-emergent</b>A weed treatment applied before weed seeds sprout. It keeps them from starting to grow.</div>
+<div class="def" id="def-bermuda" popover><b>Bermuda</b>The warm-season grass on most Phoenix turf. It grows through summer and turns brown and dormant in winter.</div>
+<div class="def" id="def-drip" popover><b>Drip irrigation</b>Small tubes and emitters that deliver water slowly to each plant's roots. Used for shrubs, trees and beds.</div>
+<div class="def" id="def-natural" popover><b>Natural-form pruning</b>Pruning that keeps a plant's own shape by removing selected branches at their base.</div>
+<div class="def" id="def-structural" popover><b>Structural pruning</b>Pruning that builds a strong trunk and well-spaced branches, so the tree holds up in wind.</div>
+<div class="def" id="def-monsoon" popover><b>Monsoon</b>Arizona's summer storm season, June 15 to September 30, with high winds, dust storms and heavy rain.</div>
+<div class="def" id="def-transition" popover><b>Transition</b>The late-spring period when winter ryegrass dies back in the heat and bermuda grows in again.</div>
 
 <footer class="site-footer">
   <div class="wrap">

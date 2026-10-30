@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Request a property walkthrough | Premier Landscape Management</title>
-<meta name="description" content="Request a walkthrough of your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal.">
+<title>Request a proposal | Premier Landscape Management</title>
+<meta name="description" content="Request a landscape maintenance proposal for your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal.">
 <meta name="robots" content="noindex">
-<meta property="og:title" content="Request a property walkthrough | Premier Landscape Management">
-<meta property="og:description" content="Request a walkthrough of your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal.">
+<meta property="og:title" content="Request a proposal | Premier Landscape Management">
+<meta property="og:description" content="Request a landscape maintenance proposal for your HOA or commercial property in Phoenix. We walk the grounds with you and send a written proposal.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#1e2815">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -36,24 +36,26 @@
         <li><a href="how-we-work.html">How we work</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
-      <a class="btn btn-ink" href="walkthrough.html" aria-current="page">Request a walkthrough</a>
+      <a class="btn btn-ink" href="request-proposal.html" aria-current="page">Request a proposal</a>
     </nav>
+
   </div>
 </header>
 
 <main id="main">
-<section class="page-head on-dark">
+<div class="rail" aria-hidden="true"></div>
+<section class="page-head on-dark ridged">
   <div class="wrap">
-    <p class="crumb"><a href="index.html">Home</a> / Request a walkthrough</p>
-    <h1>Request a property walkthrough</h1>
-    <p class="lead">Tell us about your property and we'll schedule a time to walk it with you. You'll receive a written proposal afterward.</p>
+    <p class="crumb"><a href="index.html">Home</a> / Request a proposal</p>
+    <h1>Request a proposal</h1>
+    <p class="lead">Tell us about your property. We'll schedule a walkthrough with you or your manager, then send a written proposal with scope and monthly pricing.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap form-layout">
     <div>
-      <form id="walkthrough-form" novalidate>
+      <form id="proposal-form" novalidate>
         <div class="row">
           <div class="field">
             <label for="name">Your name <span class="req">required</span></label>
@@ -87,9 +89,21 @@
           </div>
         </div>
 
-        <div class="field">
-          <label for="property">Property name and address <span class="req">required</span></label>
-          <input id="property" name="property" type="text" required data-label="the property name or address">
+        <div class="row">
+          <div class="field">
+            <label for="property">Property name or address <span class="req">required</span></label>
+            <input id="property" name="property" type="text" required data-label="the property name or address">
+          </div>
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" list="cities" autocomplete="address-level2">
+            <datalist id="cities">
+              <option value="Phoenix"><option value="Glendale"><option value="Peoria"><option value="Scottsdale">
+              <option value="Tempe"><option value="Mesa"><option value="Chandler"><option value="Gilbert">
+              <option value="Surprise"><option value="Goodyear"><option value="Avondale"><option value="Buckeye">
+              <option value="Paradise Valley"><option value="Fountain Hills"><option value="Cave Creek"><option value="Queen Creek">
+            </datalist>
+          </div>
         </div>
 
         <div class="row">
@@ -97,11 +111,11 @@
             <label for="type">Property type</label>
             <select id="type" name="type">
               <option value="">Choose one</option>
-              <option>HOA community</option>
-              <option>Office or business park</option>
-              <option>Retail or mixed-use</option>
-              <option>Multifamily</option>
-              <option>Other commercial</option>
+              <option value="hoa">HOA community</option>
+              <option value="office">Office or business park</option>
+              <option value="retail">Retail or mixed-use</option>
+              <option value="multifamily">Multifamily</option>
+              <option value="other">Other commercial</option>
             </select>
           </div>
           <div class="field">
@@ -111,29 +125,56 @@
           </div>
         </div>
 
-        <fieldset>
-          <legend>Approximate size of landscaped area</legend>
-          <div class="choices">
-            <label><input type="radio" name="size" value="Under 1 acre"> Under 1 acre</label>
-            <label><input type="radio" name="size" value="1 to 5 acres"> 1 to 5 acres</label>
-            <label><input type="radio" name="size" value="5 to 20 acres"> 5 to 20 acres</label>
-            <label><input type="radio" name="size" value="Over 20 acres"> Over 20 acres</label>
-            <label><input type="radio" name="size" value="Not sure"> Not sure</label>
+        <div class="followup" data-for="hoa" hidden>
+          <div class="field">
+            <label for="homes">Number of homes in the community</label>
+            <input id="homes" name="homes" type="number" min="1" inputmode="numeric">
           </div>
-        </fieldset>
+        </div>
+        <div class="followup" data-for="multifamily" hidden>
+          <div class="field">
+            <label for="units">Number of units</label>
+            <input id="units" name="units" type="number" min="1" inputmode="numeric">
+          </div>
+        </div>
+        <div class="followup" data-for="retail" hidden>
+          <div class="field">
+            <label for="opens">Earliest store opening time</label>
+            <input id="opens" name="store_opens" type="time" value="09:00">
+            <p class="hint">We schedule crews to finish loud work before this time.</p>
+          </div>
+        </div>
+        <div class="followup" data-for="office" hidden>
+          <fieldset style="margin-bottom:1rem">
+            <legend>When should loud work happen?</legend>
+            <div class="choices">
+              <label><input type="radio" name="quiet" value="Before business hours"> Before business hours</label>
+              <label><input type="radio" name="quiet" value="Any time"> Any time</label>
+            </div>
+          </fieldset>
+        </div>
 
         <div class="field">
-          <label for="message">What's prompting the walkthrough?</label>
+          <label for="acres">Approximate landscaped area</label>
+          <div class="range-row">
+            <input id="acres" name="acres" type="range" min="0.5" max="40" step="0.5" value="3" aria-describedby="acres-out">
+            <output id="acres-out" for="acres">3 acres</output>
+          </div>
+          <label class="inline-check"><input type="checkbox" id="acres-unknown" name="acres_unknown"> I'm not sure</label>
+        </div>
+
+        <div class="field">
+          <label for="message">What's prompting the request?</label>
           <textarea id="message" name="message" placeholder="For example: our contract is up in March, irrigation keeps breaking, the entry needs a refresh."></textarea>
         </div>
 
-        <button class="btn btn-ink" type="submit">Send walkthrough request</button>
+        <button class="btn btn-ink" type="submit">Send proposal request</button>
         <p class="form-note"><span class="tbd">This preview form isn't connected yet. At launch, requests will go to Jose's email.</span></p>
       </form>
 
       <div id="form-done" class="form-done" hidden>
-        <h2 tabindex="-1">Walkthrough request sent</h2>
-        <p>Thanks. <span class="tbd">Jose will call or email you within one business day</span> to set a time.</p>
+        <h2 tabindex="-1">Proposal request sent</h2>
+        <p>Thanks. <span class="tbd">Jose will call or email you within one business day</span> to schedule the walkthrough.</p>
         <p class="form-note">Preview only: nothing was sent.</p>
       </div>
     </div>
@@ -142,9 +183,9 @@
       <div class="aside-box">
         <h3>What happens next</h3>
         <ol>
-          <li>We call or email to set a time that works for you.</li>
-          <li>We walk the property together, usually in under an hour.</li>
-          <li>You get a written proposal with scope and pricing.</li>
+          <li>We call or email to schedule a walkthrough.</li>
+          <li>We walk the property with you, usually in under an hour.</li>
+          <li>You receive a written proposal with scope and monthly pricing.</li>
         </ol>
       </div>
       <div class="aside-box">
@@ -156,6 +197,16 @@
   </div>
 </section>
 </main>
+
+<div class="def" id="def-overseed" popover><b>Overseed</b>Spreading ryegrass seed over dormant bermuda in fall, so the turf stays green through winter.</div>
+<div class="def" id="def-scalp" popover><b>Scalp</b>Mowing bermuda very short in September, so new ryegrass seed can reach the soil.</div>
+<div class="def" id="def-preemergent" popover><b>Pre-emergent</b>A weed treatment applied before weed seeds sprout. It keeps them from starting to grow.</div>
+<div class="def" id="def-bermuda" popover><b>Bermuda</b>The warm-season grass on most Phoenix turf. It grows through summer and turns brown and dormant in winter.</div>
+<div class="def" id="def-drip" popover><b>Drip irrigation</b>Small tubes and emitters that deliver water slowly to each plant's roots. Used for shrubs, trees and beds.</div>
+<div class="def" id="def-natural" popover><b>Natural-form pruning</b>Pruning that keeps a plant's own shape by removing selected branches at their base.</div>
+<div class="def" id="def-structural" popover><b>Structural pruning</b>Pruning that builds a strong trunk and well-spaced branches, so the tree holds up in wind.</div>
+<div class="def" id="def-monsoon" popover><b>Monsoon</b>Arizona's summer storm season, June 15 to September 30, with high winds, dust storms and heavy rain.</div>
+<div class="def" id="def-transition" popover><b>Transition</b>The late-spring period when winter ryegrass dies back in the heat and bermuda grows in again.</div>
 
 <footer class="site-footer">
   <div class="wrap">

@@ -1,0 +1,152 @@
+<section class="page-head on-dark ridged">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / Request a proposal</p>
+    <h1>Request a proposal</h1>
+    <p class="lead">Tell us about your property. We'll schedule a walkthrough with you or your manager, then send a written proposal with scope and monthly pricing.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap form-layout">
+    <div>
+      <form id="proposal-form" novalidate>
+        <div class="row">
+          <div class="field">
+            <label for="name">Your name <span class="req">required</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" required data-label="your name">
+          </div>
+          <div class="field">
+            <label for="org">Company or association</label>
+            <input id="org" name="organization" type="text" autocomplete="organization">
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Your role</legend>
+          <div class="choices">
+            <label><input type="radio" name="role" value="Board member"> Board member</label>
+            <label><input type="radio" name="role" value="Community manager"> Community manager</label>
+            <label><input type="radio" name="role" value="Property manager"> Property manager</label>
+            <label><input type="radio" name="role" value="Owner"> Owner</label>
+            <label><input type="radio" name="role" value="Other"> Other</label>
+          </div>
+        </fieldset>
+
+        <div class="row">
+          <div class="field">
+            <label for="email">Email <span class="req">required</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required data-label="your email">
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="property">Property name or address <span class="req">required</span></label>
+            <input id="property" name="property" type="text" required data-label="the property name or address">
+          </div>
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" list="cities" autocomplete="address-level2">
+            <datalist id="cities">
+              <option value="Phoenix"><option value="Glendale"><option value="Peoria"><option value="Scottsdale">
+              <option value="Tempe"><option value="Mesa"><option value="Chandler"><option value="Gilbert">
+              <option value="Surprise"><option value="Goodyear"><option value="Avondale"><option value="Buckeye">
+              <option value="Paradise Valley"><option value="Fountain Hills"><option value="Cave Creek"><option value="Queen Creek">
+            </datalist>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="type">Property type</label>
+            <select id="type" name="type">
+              <option value="">Choose one</option>
+              <option value="hoa">HOA community</option>
+              <option value="office">Office or business park</option>
+              <option value="retail">Retail or mixed-use</option>
+              <option value="multifamily">Multifamily</option>
+              <option value="other">Other commercial</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="contract">Current contract ends</label>
+            <input id="contract" name="contract_end" type="date">
+            <p class="hint">Leave blank if you're not under contract.</p>
+          </div>
+        </div>
+
+        <div class="followup" data-for="hoa" hidden>
+          <div class="field">
+            <label for="homes">Number of homes in the community</label>
+            <input id="homes" name="homes" type="number" min="1" inputmode="numeric">
+          </div>
+        </div>
+        <div class="followup" data-for="multifamily" hidden>
+          <div class="field">
+            <label for="units">Number of units</label>
+            <input id="units" name="units" type="number" min="1" inputmode="numeric">
+          </div>
+        </div>
+        <div class="followup" data-for="retail" hidden>
+          <div class="field">
+            <label for="opens">Earliest store opening time</label>
+            <input id="opens" name="store_opens" type="time" value="09:00">
+            <p class="hint">We schedule crews to finish loud work before this time.</p>
+          </div>
+        </div>
+        <div class="followup" data-for="office" hidden>
+          <fieldset style="margin-bottom:1rem">
+            <legend>When should loud work happen?</legend>
+            <div class="choices">
+              <label><input type="radio" name="quiet" value="Before business hours"> Before business hours</label>
+              <label><input type="radio" name="quiet" value="Any time"> Any time</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="field">
+          <label for="acres">Approximate landscaped area</label>
+          <div class="range-row">
+            <input id="acres" name="acres" type="range" min="0.5" max="40" step="0.5" value="3" aria-describedby="acres-out">
+            <output id="acres-out" for="acres">3 acres</output>
+          </div>
+          <label class="inline-check"><input type="checkbox" id="acres-unknown" name="acres_unknown"> I'm not sure</label>
+        </div>
+
+        <div class="field">
+          <label for="message">What's prompting the request?</label>
+          <textarea id="message" name="message" placeholder="For example: our contract is up in March, irrigation keeps breaking, the entry needs a refresh."></textarea>
+        </div>
+
+        <button class="btn btn-ink" type="submit">Send proposal request</button>
+        <p class="form-note"><span class="tbd">This preview form isn't connected yet. At launch, requests will go to Jose's email.</span></p>
+      </form>
+
+      <div id="form-done" class="form-done" hidden>
+        <h2 tabindex="-1">Proposal request sent</h2>
+        <p>Thanks. <span class="tbd">Jose will call or email you within one business day</span> to schedule the walkthrough.</p>
+        <p class="form-note">Preview only: nothing was sent.</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="aside-box">
+        <h3>What happens next</h3>
+        <ol>
+          <li>We call or email to schedule a walkthrough.</li>
+          <li>We walk the property with you, usually in under an hour.</li>
+          <li>You receive a written proposal with scope and monthly pricing.</li>
+        </ol>
+      </div>
+      <div class="aside-box">
+        <h3>Prefer to call?</h3>
+        <p><a href="tel:+16020000000"><span class="tbd">(602) 000-0000</span></a><br><span class="tbd">Mon to Fri, 6 a.m. to 4 p.m.</span></p>
+        <p><a href="mailto:info@premier-lm.com"><span class="tbd">info@premier-lm.com</span></a></p>
+      </div>
+    </aside>
+  </div>
+</section>

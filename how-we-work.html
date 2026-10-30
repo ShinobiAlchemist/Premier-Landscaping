@@ -36,13 +36,15 @@
         <li><a href="how-we-work.html" aria-current="page">How we work</a></li>
         <li><a href="about.html">About</a></li>
       </ul>
-      <a class="btn btn-ink" href="walkthrough.html">Request a walkthrough</a>
+      <a class="btn btn-ink" href="request-proposal.html">Request a proposal</a>
     </nav>
+
   </div>
 </header>
 
 <main id="main">
-<section class="page-head on-dark">
+<div class="rail" aria-hidden="true"></div>
+<section class="page-head on-dark ridged">
   <div class="wrap">
     <p class="crumb"><a href="index.html">Home</a> / How we work</p>
     <h1>How we start and run a contract</h1>
@@ -66,7 +68,7 @@
       </li>
       <li>
         <h3>We map the property</h3>
-        <p>Before the first visit, we record every irrigation zone, controller and valve, note the plants and trees, and set the seasonal schedule for your site.</p>
+        <p>Before the first visit, we record every irrigation zone, controller and valve, note the plants and trees, and set the seasonal schedule for your site. The <a href="index.html">plan on our home page</a> shows what this map looks like.</p>
       </li>
       <li>
         <h3>The first month brings the property up to standard</h3>
@@ -80,25 +82,25 @@
   </div>
 </section>
 
-<section class="section band" id="calendar">
+<section class="section band" id="calendar" style="scroll-margin-top:7rem">
   <div class="wrap">
     <div class="section-head">
       <h2>The Phoenix landscape calendar</h2>
       <p>The work we schedule each month on a typical HOA or commercial property, and why it happens when it does.</p>
     </div>
     <div class="calendar-full">
-      <div class="month"><h3>January</h3><p>Frost protection on tender plants. Dormant pruning of deciduous trees. Controllers on winter schedules.</p><p class="why">Cold nights in the low 30s can damage citrus, lantana and bougainvillea.</p></div>
-      <div class="month"><h3>February</h3><p>Pre-emergent for spring weeds. Rose and perennial cutbacks. Irrigation check as growth resumes.</p><p class="why">Applying pre-emergent before soil warms stops weeds before they sprout.</p></div>
-      <div class="month"><h3>March</h3><p>Spring planting. Shrub pruning after the last frost. Controllers stepped up.</p><p class="why">Mild weather gives new plants time to root before summer.</p></div>
-      <div class="month"><h3>April</h3><p>Full irrigation check, zone by zone. Fertilize as bermuda greens up.</p><p class="why">Fixing problems now costs less than replacing plants lost in June.</p></div>
-      <div class="month"><h3>May</h3><p>Transition from winter rye to bermuda. Pre-monsoon tree thinning begins.</p><p class="why">Rye fades in the heat; bermuda needs room and water to take over.</p></div>
-      <div class="month"><h3>June</h3><p>Early crew starts for heat safety. Palm trimming after flowering. Longer run times.</p><p class="why">The hottest, driest month of the year. Drip systems are checked often.</p></div>
-      <div class="month"><h3>July</h3><p>Monsoon readiness. Storm cleanup as needed. Basin and drainage inlets kept clear.</p><p class="why">Monsoon season brings sudden wind, dust and heavy rain.</p></div>
-      <div class="month"><h3>August</h3><p>Storm response continues. Irrigation adjusted after heavy rain. Palm trimming wraps up.</p><p class="why">Rain changes how much water each zone needs week to week.</p></div>
-      <div class="month"><h3>September</h3><p>Scalp bermuda. Fall pre-emergent. Storm damage repairs.</p><p class="why">Scalping prepares turf for overseeding next month.</p></div>
-      <div class="month"><h3>October</h3><p>Overseed winter rye. Fall planting season opens. Run times reduced.</p><p class="why">Warm soil and cooler air make October the best planting month in Phoenix.</p></div>
-      <div class="month"><h3>November</h3><p>Rye established and mowed. Planting continues. Holiday color for retail and entries.</p><p class="why">The last stretch of easy growing weather before winter.</p></div>
-      <div class="month"><h3>December</h3><p>Frost cloth ready. Controllers to winter schedules. Year-end walkthrough and plan for next year.</p><p class="why">A good time to agree on next year's enhancement priorities and budget.</p></div>
+      <div class="month" data-month="1"><h3>January</h3><p>Frost protection on tender plants. Dormant pruning of deciduous trees. Controllers on winter schedules.</p><p class="why">Cold nights in the low 30s can damage citrus, lantana and bougainvillea.</p></div>
+      <div class="month" data-month="2"><h3>February</h3><p><button type="button" class="term" popovertarget="def-preemergent">Pre-emergent</button> for spring weeds. Rose and perennial cutbacks. Irrigation check as growth resumes.</p><p class="why">Applying pre-emergent before soil warms stops weeds before they sprout.</p></div>
+      <div class="month" data-month="3"><h3>March</h3><p>Spring planting. Shrub pruning after the last frost. Controllers stepped up.</p><p class="why">Mild weather gives new plants time to root before summer.</p></div>
+      <div class="month" data-month="4"><h3>April</h3><p>Full irrigation check, zone by zone. Fertilize as bermuda greens up.</p><p class="why">Fixing problems now costs less than replacing plants lost in June.</p></div>
+      <div class="month" data-month="5"><h3>May</h3><p><button type="button" class="term" popovertarget="def-transition">Transition</button> from winter rye to <button type="button" class="term" popovertarget="def-bermuda">bermuda</button>. Pre-<button type="button" class="term" popovertarget="def-monsoon">monsoon</button> tree thinning begins.</p><p class="why">Rye fades in the heat; bermuda needs room and water to take over.</p></div>
+      <div class="month" data-month="6"><h3>June</h3><p>Early crew starts for heat safety. Palm trimming after flowering. Longer run times.</p><p class="why">The hottest, driest month of the year. Drip systems are checked often.</p></div>
+      <div class="month" data-month="7"><h3>July</h3><p>Monsoon readiness. Storm cleanup as needed. Basin and drainage inlets kept clear.</p><p class="why">Monsoon season brings sudden wind, dust and heavy rain.</p></div>
+      <div class="month" data-month="8"><h3>August</h3><p>Storm response continues. Irrigation adjusted after heavy rain. Palm trimming wraps up.</p><p class="why">Rain changes how much water each zone needs week to week.</p></div>
+      <div class="month" data-month="9"><h3>September</h3><p><button type="button" class="term" popovertarget="def-scalp">Scalp</button> bermuda. Fall pre-emergent. Storm damage repairs.</p><p class="why">Scalping prepares turf for overseeding next month.</p></div>
+      <div class="month" data-month="10"><h3>October</h3><p><button type="button" class="term" popovertarget="def-overseed">Overseed</button> winter rye. Fall planting season opens. Run times reduced.</p><p class="why">Warm soil and cooler air make October the best planting month in Phoenix.</p></div>
+      <div class="month" data-month="11"><h3>November</h3><p>Rye established and mowed. Planting continues. Holiday color for retail and entries.</p><p class="why">The last stretch of easy growing weather before winter.</p></div>
+      <div class="month" data-month="12"><h3>December</h3><p>Frost cloth ready. Controllers to winter schedules. Year-end walkthrough and plan for next year.</p><p class="why">A good time to agree on next year's enhancement priorities and budget.</p></div>
     </div>
   </div>
 </section>
@@ -108,7 +110,7 @@
     <div>
       <h2>Crew standards</h2>
       <p class="lead" style="margin-top:1.25rem">Residents, tenants and customers see our crews on your property every week, so every crew follows the same standards for how they work.</p>
-      <div class="photo wide" style="margin-top:2rem"><span>Premier crew with trucks and equipment, ready for the day.</span></div>
+      <div style="margin-top:2rem"><figure class="photo wide"><img src="https://images.unsplash.com/photo-1734079692160-fcbe4be6ab96?w=1400&q=70&auto=format&fit=crop" alt="Landscaper in work uniform pushing a wheelbarrow across turf" loading="lazy" decoding="async"><figcaption>Landscaper in work uniform pushing a wheelbarrow across turf</figcaption></figure></div>
     </div>
     <dl class="facts">
       <div><dt>Assigned routes</dt><dd>The same crew returns to your property, so they learn its systems and its problem spots.</dd></div>
@@ -123,15 +125,25 @@
 <section class="cta">
   <div class="wrap">
     <div>
-      <h2>Request a walkthrough</h2>
-      <p>We'll find a time that works for you or your manager.</p>
+      <h2>Request a proposal</h2>
+      <p>The first step is a walkthrough. We'll find a time that works for you or your manager.</p>
     </div>
     <div class="cta-actions">
-      <a class="btn btn-ink" href="walkthrough.html">Request a walkthrough</a>
+      <a class="btn btn-ink" href="request-proposal.html">Request a proposal</a>
     </div>
   </div>
 </section>
 </main>
+
+<div class="def" id="def-overseed" popover><b>Overseed</b>Spreading ryegrass seed over dormant bermuda in fall, so the turf stays green through winter.</div>
+<div class="def" id="def-scalp" popover><b>Scalp</b>Mowing bermuda very short in September, so new ryegrass seed can reach the soil.</div>
+<div class="def" id="def-preemergent" popover><b>Pre-emergent</b>A weed treatment applied before weed seeds sprout. It keeps them from starting to grow.</div>
+<div class="def" id="def-bermuda" popover><b>Bermuda</b>The warm-season grass on most Phoenix turf. It grows through summer and turns brown and dormant in winter.</div>
+<div class="def" id="def-drip" popover><b>Drip irrigation</b>Small tubes and emitters that deliver water slowly to each plant's roots. Used for shrubs, trees and beds.</div>
+<div class="def" id="def-natural" popover><b>Natural-form pruning</b>Pruning that keeps a plant's own shape by removing selected branches at their base.</div>
+<div class="def" id="def-structural" popover><b>Structural pruning</b>Pruning that builds a strong trunk and well-spaced branches, so the tree holds up in wind.</div>
+<div class="def" id="def-monsoon" popover><b>Monsoon</b>Arizona's summer storm season, June 15 to September 30, with high winds, dust storms and heavy rain.</div>
+<div class="def" id="def-transition" popover><b>Transition</b>The late-spring period when winter ryegrass dies back in the heat and bermuda grows in again.</div>
 
 <footer class="site-footer">
   <div class="wrap">
