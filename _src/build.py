@@ -96,7 +96,7 @@ TEMPLATE = """<!doctype html>
 <meta name="theme-color" content="#1e2815">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/montserrat.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/site.css?v={ver}">
 {schema}
 </head>
 <body>
@@ -173,7 +173,7 @@ TEMPLATE = """<!doctype html>
   </div>
 </footer>
 
-<script src="js/site.js"></script>
+<script src="js/site.js?v={ver}"></script>
 </body>
 </html>
 """
@@ -203,6 +203,10 @@ def expand(body):
     return TERM_RE.sub(term, PHOTO_RE.sub(photo, body))
 
 
+import time
+VER = str(int(time.time()))
+
+
 def build():
     for fname, key, title, desc in PAGE_LIST:
         body = (PAGES / fname).read_text(encoding="utf-8").strip("\n")
@@ -220,6 +224,7 @@ def build():
             schema=SCHEMA if key == "home" else "",
             logo=LOGO,
             glossary=GLOSSARY,
+            ver=VER,
             weather=WEATHER if key == "home" else "",
             wt_current=' aria-current="page"' if key == "proposal" else "",
         )
