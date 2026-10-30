@@ -27,6 +27,14 @@ PAGE_LIST = [
      "Landscape management for HOA communities, office and business parks, retail centers and multifamily properties across the Phoenix metro."),
     ("how-we-work.html", "work", f"How we work | {SITE}",
      "How Premier Landscape Management starts and runs a contract: walkthrough, written proposal, property plan, monthly walkthroughs and the Phoenix seasonal calendar."),
+    ("tools.html", "tools", f"Manager tools | {SITE}",
+     "Free tools for Phoenix HOA boards and property managers: vendor documents, a landscape bid comparison sheet and a resident notice generator."),
+    ("vendor-documents.html", "tools", f"Vendor documents | {SITE}",
+     "Download Premier Landscape Management's W-9, certificate of insurance and Arizona ROC license, or request a certificate naming your association."),
+    ("compare-bids.html", "tools", f"Landscape bid comparison sheet | {SITE}",
+     "A printable checklist for comparing commercial and HOA landscape bids on the same terms."),
+    ("resident-notices.html", "tools", f"Resident notice generator | {SITE}",
+     "Create printable English and Spanish notices for overseeding, tree trimming, weed treatment and irrigation repairs."),
     ("about.html", "about", f"About | {SITE}",
      "Premier Landscape Management LLC is an owner-run Phoenix landscape contractor led by Jose Gonzalez. Arizona ROC 355147."),
     ("request-proposal.html", "proposal", f"Request a proposal | {SITE}",
@@ -64,6 +72,7 @@ NAV = [
     ("services.html", "services", "Services"),
     ("who-we-serve.html", "serve", "Who we serve"),
     ("how-we-work.html", "work", "How we work"),
+    ("tools.html", "tools", "Manager tools"),
     ("about.html", "about", "About"),
 ]
 
@@ -123,6 +132,8 @@ TEMPLATE = """<!doctype html>
   </div>
 </header>
 
+<div class="alert-bar" id="alert-bar" role="status" hidden><div class="wrap"><p id="alert-text"></p></div></div>
+
 <main id="main">
 <div class="rail" aria-hidden="true"></div>
 {body}
@@ -154,6 +165,9 @@ TEMPLATE = """<!doctype html>
           <li><a href="how-we-work.html">How we work</a></li>
           <li><a href="how-we-work.html#calendar">Seasonal calendar</a></li>
           <li><a href="about.html">About Jose and the crew</a></li>
+          <li><a href="vendor-documents.html">Vendor documents</a></li>
+          <li><a href="compare-bids.html">Bid comparison sheet</a></li>
+          <li><a href="resident-notices.html">Resident notices</a></li>
         </ul>
       </div>
       <div>

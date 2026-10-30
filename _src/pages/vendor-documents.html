@@ -1,0 +1,72 @@
+<section class="page-head on-dark ridged">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / <a href="tools.html">Manager tools</a> / Vendor documents</p>
+    <h1>Vendor documents</h1>
+    <p class="lead">The documents management companies and HOA boards need before a new vendor's first visit.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap split">
+    <div>
+      <h2 style="font-size:var(--step-3)">Download</h2>
+      <ul class="doc-list">
+        <li>
+          <div><h3>W-9</h3><p>Taxpayer identification for your accounts payable setup.</p></div>
+          <a class="btn btn-line" href="#" aria-disabled="true"><span class="tbd">PDF to come</span></a>
+        </li>
+        <li>
+          <div><h3>Certificate of insurance</h3><p>General liability and workers' compensation, with policy dates and limits.</p></div>
+          <a class="btn btn-line" href="#" aria-disabled="true"><span class="tbd">PDF to come</span></a>
+        </li>
+        <li>
+          <div><h3>Arizona contractor license</h3><p>ROC 355147. Check its current status directly with the state.</p></div>
+          <a class="btn btn-line" href="https://roc.az.gov/" rel="noopener">Verify at the ROC</a>
+        </li>
+      </ul>
+      <p class="form-note"><span class="tbd">Jose to provide the W-9 and current certificate of insurance before launch.</span></p>
+    </div>
+
+    <div>
+      <h2 style="font-size:var(--step-3)">Request a certificate for your association</h2>
+      <p style="margin-top:1rem">Many associations and management companies need to be listed on the certificate. Send us the details and our insurance agent will issue one.</p>
+      <form id="coi-form" class="tool-form" novalidate>
+        <div class="field">
+          <label for="holder">Certificate holder, exactly as it should appear <span class="req">required</span></label>
+          <input id="holder" name="holder" type="text" required data-label="the certificate holder">
+          <p class="hint">For example: Desert Vista Homeowners Association, c/o Valley Community Management</p>
+        </div>
+        <div class="field">
+          <label for="holder-address">Certificate holder's mailing address <span class="req">required</span></label>
+          <input id="holder-address" name="holder_address" type="text" autocomplete="street-address" required data-label="the mailing address">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="coi-email">Send the certificate to <span class="req">required</span></label>
+            <input id="coi-email" name="email" type="email" autocomplete="email" required data-label="an email address">
+          </div>
+          <div class="field">
+            <label for="coi-property">Property</label>
+            <input id="coi-property" name="property" type="text">
+          </div>
+        </div>
+        <fieldset>
+          <legend>Endorsements needed</legend>
+          <div class="choices">
+            <label><input type="checkbox" name="additional_insured"> Additional insured</label>
+            <label><input type="checkbox" name="waiver"> Waiver of subrogation</label>
+            <label><input type="checkbox" name="primary"> Primary and noncontributory</label>
+          </div>
+          <p class="hint" style="margin-top:0.5rem">Check your management agreement or vendor requirements if you're not sure.</p>
+        </fieldset>
+        <button class="btn btn-ink" type="submit">Request certificate</button>
+        <p class="form-note"><span class="tbd">Preview form, not connected yet.</span></p>
+      </form>
+      <div class="form-done" id="coi-done" hidden>
+        <h2 tabindex="-1">Certificate requested</h2>
+        <p>Our insurance agent will email the certificate to you. <span class="tbd">Most requests are filled within two business days.</span></p>
+        <p class="form-note">Preview only: nothing was sent.</p>
+      </div>
+    </div>
+  </div>
+</section>

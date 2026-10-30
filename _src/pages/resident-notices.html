@@ -1,0 +1,74 @@
+<section class="page-head on-dark ridged no-print">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html">Home</a> / <a href="tools.html">Manager tools</a> / Resident notices</p>
+    <h1>Resident notice generator</h1>
+    <p class="lead">Choose a notice, fill in the details, and print it or copy the text into an email to residents. Notices can be in English, Spanish or both.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap notice-layout">
+    <form id="notice-form" class="tool-form no-print">
+      <fieldset>
+        <legend>Notice</legend>
+        <div class="choices">
+          <label><input type="radio" name="kind" value="overseed" checked> Overseeding</label>
+          <label><input type="radio" name="kind" value="trees"> Tree trimming</label>
+          <label><input type="radio" name="kind" value="weeds"> Weed treatment</label>
+          <label><input type="radio" name="kind" value="irrigation"> Irrigation shutoff</label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="n-property">Property or community name</label>
+        <input id="n-property" name="property" type="text" placeholder="Desert Vista">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="n-date">Date of the work</label>
+          <input id="n-date" name="date" type="date">
+        </div>
+        <div class="field" data-show="overseed weeds">
+          <label for="n-until">Keep off until</label>
+          <input id="n-until" name="until" type="date">
+          <p class="hint" data-show="weeds">Use the re-entry time on the product label.</p>
+        </div>
+        <div class="field" data-show="trees irrigation">
+          <label for="n-start">Start time</label>
+          <input id="n-start" name="start" type="time" value="07:00">
+        </div>
+      </div>
+      <div class="row" data-show="trees irrigation">
+        <div class="field">
+          <label for="n-end">End time</label>
+          <input id="n-end" name="end" type="time" value="12:00">
+        </div>
+        <div class="field">
+          <label for="n-areas">Areas</label>
+          <input id="n-areas" name="areas" type="text" placeholder="the north parking lot and pool area">
+        </div>
+      </div>
+      <div class="field">
+        <label for="n-contact">Questions go to</label>
+        <input id="n-contact" name="contact" type="text" placeholder="Valley Community Management, (602) 555-0142">
+      </div>
+      <fieldset>
+        <legend>Language</legend>
+        <div class="choices">
+          <label><input type="radio" name="lang" value="both" checked> English and Spanish</label>
+          <label><input type="radio" name="lang" value="en"> English</label>
+          <label><input type="radio" name="lang" value="es"> Spanish</label>
+        </div>
+      </fieldset>
+      <div class="notice-actions">
+        <button type="button" class="btn btn-ink" data-print>Print notice</button>
+        <button type="button" class="btn btn-line" id="copy-notice">Copy email text</button>
+        <output id="copy-status" class="form-note" aria-live="polite"></output>
+      </div>
+    </form>
+
+    <div>
+      <p class="preview-label no-print">Preview</p>
+      <article class="notice printable" id="notice" aria-live="polite"></article>
+    </div>
+  </div>
+</section>

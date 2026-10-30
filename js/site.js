@@ -1,6 +1,35 @@
 (function () {
   "use strict";
 
+  var validate = function (form) {
+    var firstBad = null;
+    form.querySelectorAll(".form-error").forEach(function (n) { n.remove(); });
+    form.querySelectorAll("[required]").forEach(function (input) {
+      input.removeAttribute("aria-invalid");
+      input.removeAttribute("aria-describedby");
+      var empty = !input.value.trim();
+      var badEmail = input.type === "email" && !empty && !/^\S+@\S+\.\S+$/.test(input.value);
+      if (empty || badEmail) {
+        input.setAttribute("aria-invalid", "true");
+        var msg = document.createElement("p");
+        msg.className = "form-error";
+        msg.id = input.id + "-error";
+        msg.textContent = badEmail ? "Enter an email address like name@company.com." : "Fill in " + input.dataset.label + ".";
+        input.setAttribute("aria-describedby", msg.id);
+        input.insertAdjacentElement("afterend", msg);
+        if (!firstBad) firstBad = input;
+      }
+    });
+    if (firstBad) { firstBad.focus(); return false; }
+    return true;
+  };
+  var finish = function (form, doneId) {
+    var done = document.getElementById(doneId);
+    form.hidden = true;
+    done.hidden = false;
+    done.querySelector("h2").focus();
+  };
+
   // Mobile navigation
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");
@@ -169,30 +198,194 @@
 
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
-      var firstBad = null;
-      form.querySelectorAll(".form-error").forEach(function (n) { n.remove(); });
-      form.querySelectorAll("[required]").forEach(function (input) {
-        input.removeAttribute("aria-invalid");
-        input.removeAttribute("aria-describedby");
-        var empty = !input.value.trim();
-        var badEmail = input.type === "email" && !empty && !/^\S+@\S+\.\S+$/.test(input.value);
-        if (empty || badEmail) {
-          input.setAttribute("aria-invalid", "true");
-          var msg = document.createElement("p");
-          msg.className = "form-error";
-          msg.id = input.id + "-error";
-          msg.textContent = badEmail ? "Enter an email address like name@company.com." : "Fill in " + input.dataset.label + " so we can reach you.";
-          input.setAttribute("aria-describedby", msg.id);
-          input.insertAdjacentElement("afterend", msg);
-          if (!firstBad) firstBad = input;
-        }
-      });
-      if (firstBad) { firstBad.focus(); return; }
-      var done = document.getElementById("form-done");
-      form.hidden = true;
-      done.hidden = false;
-      done.querySelector("h2").focus();
+      if (validate(form)) finish(form, "form-done");
     });
+  }
+
+  // Certificate of insurance request
+  var coi = document.getElementById("coi-form");
+  if (coi) {
+    coi.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (validate(coi)) finish(coi, "coi-done");
+    });
+  }
+
+  // Print buttons on the tool pages
+  document.querySelectorAll("[data-print]").forEach(function (b) {
+    b.addEventListener("click", function () { window.print(); });
+  });
+
+  // Bid comparison sheet: editable cells, kept in this browser
+  var sheet = document.getElementById("bid-sheet");
+  if (sheet) {
+    var store = "plm-bids";
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(store)) || {}; } catch (e) {}
+    var cells = [];
+    sheet.querySelectorAll("tbody td").forEach(function (td, i) {
+      if (td.textContent.trim()) return;
+      td.contentEditable = "true";
+      td.classList.add("fill");
+      td.dataset.key = "c" + i;
+      var row = td.parentElement.querySelector("th").textContent;
+      var col = sheet.querySelectorAll("thead th")[td.cellIndex];
+      td.setAttribute("aria-label", row + ", " + (col.querySelector("input") ? (col.querySelector("input").value || col.querySelector("input").placeholder) : col.textContent));
+      if (saved[td.dataset.key]) td.textContent = saved[td.dataset.key];
+      cells.push(td);
+    });
+    var heads = sheet.querySelectorAll("thead input");
+    heads.forEach(function (inp, i) { if (saved["h" + i]) inp.value = saved["h" + i]; });
+    var prop = document.getElementById("sheet-property");
+    var propOut = document.getElementById("sheet-property-out");
+    if (saved.property) prop.value = saved.property;
+    var save = function () {
+      var d = { property: prop.value };
+      cells.forEach(function (c) { if (c.textContent.trim()) d[c.dataset.key] = c.textContent.trim(); });
+      heads.forEach(function (inp, i) { if (inp.value) d["h" + i] = inp.value; });
+      propOut.textContent = prop.value;
+      try { localStorage.setItem(store, JSON.stringify(d)); } catch (e) {}
+    };
+    sheet.addEventListener("input", save);
+    prop.addEventListener("input", save);
+    save();
+    document.querySelector("[data-clear-sheet]").addEventListener("click", function () {
+      cells.forEach(function (c) { c.textContent = ""; });
+      heads.forEach(function (inp) { inp.value = ""; });
+      prop.value = "";
+      save();
+    });
+  }
+
+  // Resident notice generator
+  var nform = document.getElementById("notice-form");
+  if (nform) {
+    var noticeEl = document.getElementById("notice");
+    var T = {
+      overseed: {
+        en: { t: "Winter grass seeding: please keep off the turf", p: ["Premier Landscape Management will overseed the turf at {P} on {D}.", "New ryegrass needs about three weeks to establish. Please keep people and pets off seeded areas until {U}.", "Sprinklers will run more often during this time, including during the day."] },
+        es: { t: "Siembra de pasto de invierno: por favor no pise el c\u00e9sped", p: ["Premier Landscape Management sembrar\u00e1 pasto de invierno en el c\u00e9sped de {P} el {D}.", "El pasto nuevo necesita unas tres semanas para establecerse. Por favor, mantenga a las personas y mascotas fuera de las \u00e1reas sembradas hasta el {U}.", "Durante este tiempo, los aspersores funcionar\u00e1n con m\u00e1s frecuencia, incluso durante el d\u00eda."] }
+      },
+      trees: {
+        en: { t: "Tree trimming", p: ["Premier Landscape Management will trim trees at {P} on {D}, from {S} to {E}.", "Crews will work in {A}. Please move vehicles parked under trees in these areas before {S}.", "Walkways near the work may be closed for short periods."] },
+        es: { t: "Poda de \u00e1rboles", p: ["Premier Landscape Management podar\u00e1 \u00e1rboles en {P} el {D}, de {S} a {E}.", "Las cuadrillas trabajar\u00e1n en {A}. Por favor, mueva los veh\u00edculos estacionados debajo de los \u00e1rboles en estas \u00e1reas antes de las {S}.", "Algunas banquetas cercanas al trabajo podr\u00edan cerrarse por periodos cortos."] }
+      },
+      weeds: {
+        en: { t: "Weed control treatment", p: ["Premier Landscape Management will apply a pre-emergent weed treatment to granite and planting areas at {P} on {D}.", "Please keep children and pets off treated areas until {U}.", "Treated areas will be marked with signs."] },
+        es: { t: "Tratamiento para el control de maleza", p: ["Premier Landscape Management aplicar\u00e1 un tratamiento preemergente para maleza en las \u00e1reas de grava y de plantas de {P} el {D}.", "Por favor, mantenga a los ni\u00f1os y mascotas fuera de las \u00e1reas tratadas hasta el {U}.", "Las \u00e1reas tratadas estar\u00e1n se\u00f1aladas con letreros."] }
+      },
+      irrigation: {
+        en: { t: "Irrigation water shutoff", p: ["Water to the irrigation system at {P} will be shut off on {D}, from {S} to {E}, while Premier Landscape Management makes repairs in {A}.", "Water to homes and buildings is not affected."] },
+        es: { t: "Corte de agua del sistema de riego", p: ["El agua del sistema de riego de {P} se cerrar\u00e1 el {D}, de {S} a {E}, mientras Premier Landscape Management hace reparaciones en {A}.", "El agua de las viviendas y edificios no se ver\u00e1 afectada."] }
+      }
+    };
+    var contactLine = { en: "Questions? Contact {C}.", es: "\u00bfPreguntas? Comun\u00edquese con {C}." };
+    var blanks = {
+      en: { P: "the community", D: "[date]", U: "[date]", S: "[start time]", E: "[end time]", A: "the work areas", C: "your community manager" },
+      es: { P: "la comunidad", D: "[fecha]", U: "[fecha]", S: "[hora de inicio]", E: "[hora de t\u00e9rmino]", A: "las \u00e1reas de trabajo", C: "el administrador de su comunidad" }
+    };
+    var locales = { en: "en-US", es: "es-US" };
+    var fmtDate = function (v, lang) {
+      if (!v) return null;
+      var d = new Date(v + "T12:00:00");
+      return new Intl.DateTimeFormat(locales[lang], { weekday: "long", month: "long", day: "numeric" }).format(d);
+    };
+    var fmtTime = function (v, lang) {
+      if (!v) return null;
+      var d = new Date("2000-01-01T" + v + ":00");
+      return new Intl.DateTimeFormat(locales[lang], { hour: "numeric", minute: "2-digit" }).format(d);
+    };
+    var val = function (id) { return document.getElementById(id).value.trim(); };
+    var fill = function (str, lang) {
+      var v = {
+        P: val("n-property"), D: fmtDate(val("n-date"), lang), U: fmtDate(val("n-until"), lang),
+        S: fmtTime(val("n-start"), lang), E: fmtTime(val("n-end"), lang), A: val("n-areas"), C: val("n-contact")
+      };
+      return str.replace(/\{(\w)\}/g, function (_, k) { return v[k] || blanks[lang][k]; }).replace(/\.\.(?=\s|$)/g, ".");
+    };
+    var esc = function (t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; };
+    var current = function () {
+      var kind = nform.querySelector("input[name=kind]:checked").value;
+      var lang = nform.querySelector("input[name=lang]:checked").value;
+      return { kind: kind, langs: lang === "both" ? ["en", "es"] : [lang] };
+    };
+    var render = function () {
+      var c = current();
+      nform.querySelectorAll("[data-show]").forEach(function (el) {
+        el.hidden = el.dataset.show.split(" ").indexOf(c.kind) === -1;
+      });
+      var html = "";
+      c.langs.forEach(function (lang) {
+        var t = T[c.kind][lang];
+        html += '<section lang="' + lang + '"><h2>' + esc(fill(t.t, lang)) + "</h2>" +
+          t.p.map(function (x) { return "<p>" + esc(fill(x, lang)) + "</p>"; }).join("") +
+          '<p class="contact">' + esc(fill(contactLine[lang], lang)) + "</p></section>";
+      });
+      html += '<footer><span>Premier Landscape Management</span><span>Arizona ROC 355147</span></footer>';
+      noticeEl.innerHTML = html;
+      noticeEl.classList.toggle("two", c.langs.length > 1);
+    };
+    nform.addEventListener("input", render);
+    nform.addEventListener("change", render);
+    render();
+    document.getElementById("copy-notice").addEventListener("click", function () {
+      var c = current();
+      var text = c.langs.map(function (lang) {
+        var t = T[c.kind][lang];
+        return [fill(t.t, lang)].concat(t.p.map(function (x) { return fill(x, lang); }), [fill(contactLine[lang], lang)]).join("\n\n");
+      }).join("\n\n------\n\n");
+      var status = document.getElementById("copy-status");
+      var done = function () { status.textContent = "Email text copied."; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { status.textContent = "Copy failed. Select the preview text and copy it instead."; });
+      } else {
+        status.textContent = "Copy isn't available in this browser. Select the preview text and copy it instead.";
+      }
+    });
+  }
+
+  // Storm and heat banner from active National Weather Service alerts for Phoenix
+  var bar = document.getElementById("alert-bar");
+  if (bar && window.fetch) {
+    var plans = {
+      heat: "Premier crews are starting at 5 a.m. and finishing heavy work by noon. Irrigation is checked on every visit.",
+      dust: "Crews pause outdoor work while it passes. Afterward, cleanup on client properties starts with drives, walks and parking.",
+      storm: "Crews pause outdoor work while it passes. Storm cleanup on client properties starts the next morning."
+    };
+    var classify = function (ev) {
+      if (/heat/i.test(ev)) return "heat";
+      if (/dust/i.test(ev)) return "dust";
+      if (/thunderstorm|flood|wind/i.test(ev)) return "storm";
+      return null;
+    };
+    var rank = { storm: 3, dust: 2, heat: 1 };
+    var showAlert = function (kind, event, ends) {
+      var when = "";
+      if (ends) {
+        when = " until " + new Intl.DateTimeFormat("en-US", { weekday: "long", hour: "numeric", minute: "2-digit", timeZone: "America/Phoenix" }).format(new Date(ends));
+      }
+      document.getElementById("alert-text").innerHTML = "<b>" + esc2(event) + when + ".</b> <span class=\"tbd\">" + plans[kind] + "</span>";
+      bar.className = "alert-bar " + kind;
+      bar.hidden = false;
+    };
+    var esc2 = function (t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; };
+    var demo = new URLSearchParams(location.search).get("alert");
+    if (demo && plans[demo]) {
+      showAlert(demo, { heat: "Extreme Heat Warning", dust: "Dust Storm Warning", storm: "Severe Thunderstorm Warning" }[demo] + " (preview)", null);
+    } else {
+      fetch("https://api.weather.gov/alerts/active?point=33.4484,-112.074", { headers: { Accept: "application/geo+json" } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (j) {
+          var best = null;
+          (j.features || []).forEach(function (f) {
+            var p = f.properties || {};
+            var k = classify(p.event || "");
+            if (k && (!best || rank[k] > rank[best.k])) best = { k: k, event: p.event, ends: p.ends || p.expires };
+          });
+          if (best) showAlert(best.k, best.event, best.ends);
+        })
+        .catch(function () {});
+    }
   }
 
   // Live Phoenix weather from the National Weather Service (Sky Harbor, KPHX)
