@@ -65,7 +65,7 @@ GLOSSARY = "\n".join(
 
 WEATHER = """    <div class="wx" id="wx" hidden aria-label="Current weather in Phoenix">
       <span id="wx-icon" aria-hidden="true"></span>
-      <span><b id="wx-temp"></b> <span class="cond" id="wx-cond"></span><small>Phoenix, Sky Harbor</small></span>
+      <span><b id="wx-temp"></b> <span class="cond" id="wx-cond"></span></span>
     </div>"""
 
 NAV = [
