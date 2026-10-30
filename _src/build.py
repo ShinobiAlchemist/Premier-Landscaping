@@ -146,7 +146,7 @@ TEMPLATE = """<!doctype html>
     <div class="footer-grid">
       <div>
         <a class="logo" href="index.html" aria-label="Premier Landscape Management, home">{logo}</a>
-        <p style="margin-top:1.25rem">Commercial and HOA landscape management across the Phoenix metro, run by owner Jose Gonzalez.</p>
+        <p style="margin-top:1.25rem">Commercial and HOA landscape management across the Phoenix metro. Dedicated to your vision, committed to your trust.</p>
       </div>
       <div>
         <h2>Services</h2>
