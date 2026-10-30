@@ -353,6 +353,7 @@
       storm: "Crews pause outdoor work while it passes. Storm cleanup on client properties starts the next morning."
     };
     var classify = function (ev) {
+      if (!/warning|advisory/i.test(ev)) return null;
       if (/heat/i.test(ev)) return "heat";
       if (/dust/i.test(ev)) return "dust";
       if (/thunderstorm|flood|wind/i.test(ev)) return "storm";
